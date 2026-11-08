@@ -4,17 +4,26 @@ if (!isset($_SESSION)) {
 }
 
 switch (true) {
-    // Se nenhum POST foi enviado, mostra o login
+    // -- Visualizar Cadastro (via GET) -- //
+    case isset($_GET['acao']) && $_GET['acao'] == 'ADMVisualizarCadastro':
+        require_once __DIR__ . '/UsuarioController.php';
+        $id = $_GET['id'] ?? null;
+        $usuarioController = new UsuarioController();
+        $dadosUsuario = $usuarioController->carregarUsuario($id);
+        include_once __DIR__ . '/../View/ADMVisualizarCadastro.php';
+        break;
+
+    // Se nenhum POST foi enviado, mostra o login    
     case empty($_POST):
         include_once __DIR__ . '/../View/login.php';
         break;
 
-    // -- Primeiro Acesso -- //    
+    // -- Primeiro Acesso -- //        
     case isset($_POST["btnPrimeiroAcesso"]):
         include_once __DIR__ . '/../View/PrimeiroAcesso.php';
         break;
 
-    // -- Cadastrar Usuário -- //    
+    // -- Cadastrar Usuário -- //        
     case isset($_POST["btnCadastrar"]):
         require_once __DIR__ . '/UsuarioController.php';
         $uController = new UsuarioController();
@@ -30,7 +39,7 @@ switch (true) {
         }
         break;
 
-    // -- Login -- //    
+    // -- Login -- //        
     case isset($_POST["btnLogin"]):
         require_once __DIR__ . '/UsuarioController.php';
         $uController = new UsuarioController();
@@ -41,9 +50,7 @@ switch (true) {
         }
         break;
 
-    
-
-    // -- Atualizar Dados Pessoais -- //
+    // -- Atualizar Dados Pessoais -- //    
     case isset($_POST["btnAtualizar"]):
         require_once "../Controller/UsuarioController.php";
         $uController = new UsuarioController();
@@ -60,7 +67,7 @@ switch (true) {
         }
         break;
 
-    // -- Adicionar Formação Acadêmica -- //
+    // -- Adicionar Formação Acadêmica -- //    
     case isset($_POST["btnAddFormacao"]):
         require_once "../Controller/FormacaoAcadController.php";
         include_once "../Model/Usuario.php";
@@ -77,7 +84,7 @@ switch (true) {
         }
         break;
 
-    // -- Excluir Formação Acadêmica -- //
+    // -- Excluir Formação Acadêmica -- //    
     case isset($_POST["btnExcluirFA"]):
         require_once "../Controller/FormacaoAcadController.php";
         include_once "../Model/Usuario.php";
@@ -89,10 +96,10 @@ switch (true) {
         }
         break;
 
-    // -- Adicionar Outras Formações (Agenda 13) -- //
+    // -- Adicionar Outras Formações (Agenda 13) -- //    
     case isset($_POST["btnAddOF"]):
         require_once "../Controller/OutrasFormacoesController.php";
-        include_once "../Model/Usuario.php";
+        include__once "../Model/Usuario.php";
         $ofController = new OutrasFormacoesController();
         if ($ofController->inserir(
             date("Y-m-d", strtotime($_POST["txtInicioOF"])),
@@ -106,7 +113,7 @@ switch (true) {
         }
         break;
 
-    // -- Excluir Outras Formações (Agenda 13) -- //
+    // -- Excluir Outras Formações (Agenda 13) -- //    
     case isset($_POST["btnExcluirOF"]):
         require_once "../Controller/OutrasFormacoesController.php";
         include_once "../Model/Usuario.php";

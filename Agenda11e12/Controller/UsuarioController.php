@@ -22,11 +22,11 @@ class UsuarioController {
         require_once dirname(__DIR__) . '../Model/Usuario.php';
         $usuario = new Usuario();
         
-        // Carrega o usuário pelo CPF
+        // Carrega o usuário pelo CPF        
         if ($usuario->carregarUsuario($cpf)) {
-            // Verifica se a senha confere
+            // Verifica se a senha confere            
             if ($usuario->getSenha() == $senha) {
-                // Guarda o objeto usuário serializado na sessão
+                // Guarda o objeto usuário serializado na sessão                
                 $_SESSION['Usuario'] = serialize($usuario);
                 return true;
             }
@@ -45,13 +45,19 @@ class UsuarioController {
         
         $r = $usuario->atualizarBD();
         
-        // Atualiza os dados na sessão se der certo
+        // Atualiza os dados na sessão se der certo        
         if ($r) {
             $usuario->carregarUsuario($cpf);
             $_SESSION['Usuario'] = serialize($usuario);
         }
         
         return $r;
+    }
+
+    public function carregarUsuario($id) {
+        require_once dirname(__DIR__) . '../Model/Usuario.php';
+        $usuario = new Usuario();
+        return $usuario->buscarPorId($id);
     }
 }
 ?>
