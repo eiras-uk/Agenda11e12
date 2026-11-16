@@ -8,7 +8,8 @@ class Usuario
     private $dataNascimento;
     private $senha;
 
-    // ID    public function setID($id)
+    // ID
+    public function setID($id)
     {
         $this->id = $id;
     }
@@ -18,7 +19,8 @@ class Usuario
         return $this->id;
     }
 
-    // Nome    public function setNome($nome)
+    // Nome
+    public function setNome($nome)
     {
         $this->nome = $nome;
     }
@@ -28,7 +30,8 @@ class Usuario
         return $this->nome;
     }
 
-    // CPF    public function setCPF($cpf)
+    // CPF
+    public function setCPF($cpf)
     {
         $this->cpf = $cpf;
     }
@@ -38,7 +41,8 @@ class Usuario
         return $this->cpf;
     }
 
-    // Email    public function setEmail($email)
+    // Email
+    public function setEmail($email)
     {
         $this->email = $email;
     }
@@ -48,7 +52,8 @@ class Usuario
         return $this->email;
     }
 
-    // Data de nascimento    public function setDataNascimento($dataNascimento)
+    // Data de nascimento
+    public function setDataNascimento($dataNascimento)
     {
         $this->dataNascimento = $dataNascimento;
     }
@@ -58,7 +63,8 @@ class Usuario
         return $this->dataNascimento;
     }
 
-    // Senha    public function setSenha($senha)
+    // Senha
+    public function setSenha($senha)
     {
         $this->senha = $senha;
     }
@@ -68,7 +74,8 @@ class Usuario
         return $this->senha;
     }
     
-    // Método para inserir usuário no banco de dados    public function inserirBD()
+    // Método para inserir usuário no banco de dados
+    public function inserirBD()
     {
         require_once 'ConexaoBD.php';
 
@@ -92,7 +99,8 @@ class Usuario
         }
     }
     
-    // Método para carregar os dados do usuário pelo CPF    public function carregarUsuario($cpf)
+    // Método para carregar os dados do usuário pelo CPF
+    public function carregarUsuario($cpf)
     {
         require_once 'ConexaoBD.php';
 
@@ -126,7 +134,8 @@ class Usuario
         }
     }
     
-    // Método para atualizar os dados do usuário    public function atualizarBD()
+    // Método para atualizar os dados do usuário
+    public function atualizarBD()
     {
         require_once 'ConexaoBD.php';
 
@@ -170,6 +179,57 @@ class Usuario
 
         $conn->close();
         return $r;
+    }
+
+    // =========================================================
+    // NOVOS MÉTODOS (AGENDA 13 E AGENDA 14) COLADOS AQUI:
+    // =========================================================
+
+    // Lista todos os usuários cadastrados (usado em ADMListarCadastrados)
+    public function listaCadastrados()
+    {
+        require_once 'ConexaoBD.php';
+
+        $con = new ConexaoBD();
+        $conn = $con->conectar();
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT idusuario, nome FROM usuario;";
+        $re = $conn->query($sql);
+        $conn->close();
+        return $re;
+    }
+
+    // Carrega o objeto Usuario completo pelo ID (usado em ADMVisualizarCadastro)
+    public function carregarUsuarioPorID($id)
+    {
+        require_once 'ConexaoBD.php';
+
+        $con = new ConexaoBD();
+        $conn = $con->conectar();
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM usuario WHERE idusuario = " . (int)$id;
+        $re = $conn->query($sql);
+        $r = $re->fetch_object();
+
+        if ($r != null) {
+            $this->id = $r->idusuario;
+            $this->nome = $r->nome;
+            $this->email = $r->email;
+            $this->cpf = $r->cpf;
+            $this->dataNascimento = $r->dataNascimento;
+            $this->senha = $r->senha;
+            $conn->close();
+            return true;
+        } else {
+            $conn->close();
+            return false;
+        }
     }
 
 }
