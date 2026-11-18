@@ -3,6 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+
 class UsuarioController
 {
     public function inserir($nome, $cpf, $email, $senha)
@@ -14,14 +15,17 @@ class UsuarioController
         $usuario->setEmail($email);
         $usuario->setSenha($senha);
 
+
         $r = $usuario->inserirBD();
         return $r;
     }
+
 
     public function login($cpf, $senha)
     {
         require_once dirname(__DIR__) . '/Model/Usuario.php';
         $usuario = new Usuario();
+
 
         // Carrega o usuário pelo CPF
         if ($usuario->carregarUsuario($cpf)) {
@@ -35,6 +39,7 @@ class UsuarioController
         return false;
     }
 
+
     public function atualizar($id, $nome, $cpf, $email, $dataNascimento)
     {
         require_once dirname(__DIR__) . '/Model/Usuario.php';
@@ -45,7 +50,9 @@ class UsuarioController
         $usuario->setEmail($email);
         $usuario->setDataNascimento($dataNascimento);
 
+
         $r = $usuario->atualizarBD();
+
 
         // Atualiza os dados na sessão se der certo
         if ($r) {
@@ -53,8 +60,10 @@ class UsuarioController
             $_SESSION['Usuario'] = serialize($usuario);
         }
 
+
         return $r;
     }
+
 
     public function carregarUsuario($id)
     {
@@ -63,9 +72,11 @@ class UsuarioController
         return $usuario->buscarPorId($id);
     }
 
+
     // =========================================================
     // NOVOS MÉTODOS (AGENDA 13 E AGENDA 14) COLADOS AQUI:
     // =========================================================
+
 
     // Gera a lista de usuários cadastrados para ADMListarCadastrados.php
     public function gerarLista()
@@ -75,13 +86,21 @@ class UsuarioController
         return $usuario->listaCadastrados();
     }
 
+
     // Carrega o objeto Usuario completo para ADMVisualizarCadastro.php
     public function visualizar($id)
     {
         require_once dirname(__DIR__) . '/Model/Usuario.php';
         $usuario = new Usuario();
-        $usuario->carregarUsuarioPorID($id);
-        return $usuario;
+        if ($usuario->carregarUsuarioPorID($id)) {
+            return $usuario;
+        }
+        return false;
     }
+
+
+
+
 }
 ?>
+

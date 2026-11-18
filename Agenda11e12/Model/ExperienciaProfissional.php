@@ -8,6 +8,7 @@ class ExperienciaProfissional
     private $empresa;
     private $descricao;
 
+
     // ID
     public function setID($id)
     {
@@ -17,6 +18,7 @@ class ExperienciaProfissional
     {
         return $this->id;
     }
+
 
     // idusuario
     public function setIdUsuario($idusuario)
@@ -28,6 +30,7 @@ class ExperienciaProfissional
         return $this->idusuario;
     }
 
+
     // inicio
     public function setInicio($inicio)
     {
@@ -37,6 +40,7 @@ class ExperienciaProfissional
     {
         return $this->inicio;
     }
+
 
     // fim
     public function setFim($fim)
@@ -48,6 +52,7 @@ class ExperienciaProfissional
         return $this->fim;
     }
 
+
     // empresa
     public function setEmpresa($empresa)
     {
@@ -57,6 +62,7 @@ class ExperienciaProfissional
     {
         return $this->empresa;
     }
+
 
     // descricao
     public function setDescricao($descricao)
@@ -68,10 +74,11 @@ class ExperienciaProfissional
         return $this->descricao;
     }
 
+
     // Inserir no Banco de Dados
     public function inserirBD()
     {
-        require_once 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
         $con = new ConexaoBD();
         $conn = $con->conectar();
         if ($conn->connect_error) {
@@ -88,10 +95,11 @@ class ExperienciaProfissional
         }
     }
 
+
     // Excluir do Banco de Dados
     public function excluirBD($id)
     {
-        require_once 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
         $con = new ConexaoBD();
         $conn = $con->conectar();
         if ($conn->connect_error) {
@@ -107,10 +115,11 @@ class ExperienciaProfissional
         }
     }
 
+
     // Listar Experiências
     public function listaExperiencias($idusuario)
     {
-        require_once 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
         $con = new ConexaoBD();
         $conn = $con->conectar();
         if ($conn->connect_error) {

@@ -6,6 +6,7 @@ class OutrasFormacoes {
     private $fim;
     private $descricao;
 
+
     // ID
     public function setID($id) {
         $this->id = $id;
@@ -13,6 +14,7 @@ class OutrasFormacoes {
     public function getID() {
         return $this->id;
     }
+
 
     // idusuario
     public function setIdUsuario($idusuario) {
@@ -22,6 +24,7 @@ class OutrasFormacoes {
         return $this->idusuario;
     }
 
+
     // inicio
     public function setInicio($inicio) {
         $this->inicio = $inicio;
@@ -29,6 +32,7 @@ class OutrasFormacoes {
     public function getInicio() {
         return $this->inicio;
     }
+
 
     // fim
     public function setFim($fim) {
@@ -38,6 +42,7 @@ class OutrasFormacoes {
         return $this->fim;
     }
 
+
     // Descrição
     public function setDescricao($descricao) {
         $this->descricao = $descricao;
@@ -46,9 +51,10 @@ class OutrasFormacoes {
         return $this->descricao;
     }
 
+
     // Método inserirBD
     public function inserirBD() {
-        require_once dirname(__DIR__) . 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
         $con = new ConexaoBD();
         $conn = $con->conectar();
         if ($conn->connect_error) {
@@ -65,9 +71,10 @@ class OutrasFormacoes {
         }
     }
 
+
     // Método excluirBD
     public function excluirBD($id) {
-        require_once dirname(__DIR__) . 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
         $con = new ConexaoBD();
         $conn = $con->conectar();
         if ($conn->connect_error) {
@@ -83,9 +90,10 @@ class OutrasFormacoes {
         }
     }
 
+
     // Método listaOutrasFormacoes
     public function listaOutrasFormacoes($idusuario) {
-        require_once dirname(__DIR__) . 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
         $con = new ConexaoBD();
         $conn = $con->conectar();
         if ($conn->connect_error) {

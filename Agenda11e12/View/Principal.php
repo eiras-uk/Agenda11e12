@@ -4,9 +4,11 @@ include_once '../Controller/FormacaoAcadController.php';
 include_once '../Controller/ExperienciaProfissionalController.php';
 include_once '../Controller/OutrasFormacoesController.php';
 
+
 if (!isset($_SESSION)) {
     session_start();
 }
+
 
 // Recupera o usuário logado da sessão
 $usuario = unserialize($_SESSION['Usuario']);
@@ -30,6 +32,7 @@ $usuario = unserialize($_SESSION['Usuario']);
     </style>
 </head>
 <body class="w3-light-grey">
+
 
     <!-- Barra Lateral (Sidebar) -->
     <nav class="w3-sidebar w3-bar-block w3-center w3-blue">
@@ -55,8 +58,10 @@ $usuario = unserialize($_SESSION['Usuario']);
         </a>
     </nav>
 
+
     <!-- Conteúdo Principal -->
     <div class="w3-padding-large" style="margin-left: 120px;" id="main">
+
 
         <!-- Seção Home -->
         <header class="w3-container w3-padding-32 w3-center" id="home">
@@ -67,12 +72,15 @@ $usuario = unserialize($_SESSION['Usuario']);
             <h1 class="w3-text-cyan">SISTEMA DE CURRÍCULOS</h1>
         </header>
 
+
         <!-- Dados Pessoais -->
         <div class="w3-padding-128 w3-content w3-text-grey" id="dPessoais">
             <h2 class="w3-text-cyan">Dados Pessoais</h2>
 
+
             <form action="../Controller/Navegacao.php" method="post" class="w3-row w3-light-grey w3-text-blue w3-margin" style="width:70%;">
                 <input class="w3-input w3-border w3-round-large" name="txtID" type="hidden" value="<?php echo $usuario->getID(); ?>">
+
 
                 <div class="w3-row w3-section">
                     <div class="w3-col" style="width:11%;">
@@ -83,6 +91,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
 
+
                 <div class="w3-row w3-section">
                     <div class="w3-col" style="width:11%;">
                         <i class="w3-xxlarge fa fa-calendar"></i>
@@ -91,6 +100,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                         <input class="w3-input w3-border w3-round-large" name="txtData" type="date" value="<?php echo htmlspecialchars($usuario->getDataNascimento() ?? ''); ?>">
                     </div>
                 </div>
+
 
                 <div class="w3-row w3-section">
                     <div class="w3-col" style="width:11%;">
@@ -101,6 +111,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
 
+
                 <div class="w3-row w3-section">
                     <div class="w3-col" style="width:11%;">
                         <i class="w3-xxlarge fa fa-envelope-o"></i>
@@ -110,6 +121,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
 
+
                 <div class="w3-row w3-section">
                     <div class="w3-center">
                         <button name="btnAtualizar" class="w3-button w3-block w3-margin w3-blue w3-cell w3-round-large" style="width: 90%;">Atualizar</button>
@@ -118,15 +130,18 @@ $usuario = unserialize($_SESSION['Usuario']);
             </form>
         </div>
 
+
         <!-- Formação Acadêmica -->
         <div class="w3-padding-128 w3-content w3-text-grey" id="formacao">
             <h2 class="w3-text-cyan">Formação Acadêmica</h2>
+
 
             <form action="../Controller/Navegacao.php" method="post" class="w3-row w3-light-grey w3-text-blue w3-margin" style="width:70%;">
                 <div class="w3-row w3-center">
                     <div class="w3-col" style="width:50%;">Data Inicial</div>
                     <div class="w3-rest">Data Final</div>
                 </div>
+
 
                 <div class="w3-row w3-section">
                     <div class="w3-row w3-section w3-col" style="width:45%;">
@@ -138,6 +153,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                         </div>
                     </div>
 
+
                     <div class="w3-row w3-section w3-rest">
                         <div class="w3-col w3-margin-left" style="width:13%;">
                             <i class="w3-xxlarge fa fa-calendar"></i>
@@ -148,6 +164,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
 
+
                 <div class="w3-row w3-section">
                     <div class="w3-col" style="width:7%;">
                         <i class="w3-xxlarge fa fa-align-justify"></i>
@@ -157,6 +174,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
 
+
                 <div class="w3-row w3-section">
                     <div class="w3-center">
                         <button name="btnAddFormacao" class="w3-button w3-block w3-blue w3-cell w3-round-large" style="width: 20%;">
@@ -165,6 +183,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
             </form>
+
 
             <!-- Tabela Formação Acadêmica -->
             <div class="w3-container">
@@ -204,15 +223,18 @@ $usuario = unserialize($_SESSION['Usuario']);
             </div>
         </div>
 
+
         <!-- Experiência Profissional -->
         <div class="w3-padding-128 w3-content w3-text-grey" id="eProfissional">
             <h2 class="w3-text-cyan">Experiência Profissional</h2>
+
 
             <form action="../Controller/Navegacao.php" method="post" class="w3-row w3-light-grey w3-text-blue w3-margin" style="width: 70%;">
                 <div class="w3-row w3-center">
                     <div class="w3-col" style="width:50%;">Data Inicial</div>
                     <div class="w3-rest">Data Final</div>
                 </div>
+
 
                 <div class="w3-row w3-section">
                     <div class="w3-row w3-section w3-col" style="width:45%;">
@@ -224,6 +246,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                         </div>
                     </div>
 
+
                     <div class="w3-row w3-section w3-rest">
                         <div class="w3-col w3-margin-left" style="width:13%;">
                             <i class="w3-xxlarge fa fa-calendar"></i>
@@ -234,6 +257,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
 
+
                 <div class="w3-row w3-section">
                     <div class="w3-col" style="width:7%;">
                         <i class="w3-xxlarge fa fa-align-justify"></i>
@@ -242,6 +266,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                         <input class="w3-input w3-border w3-round-large" name="txtEmpEP" type="text" placeholder="Centro Paula Souza">
                     </div>
                 </div>
+
 
                 <div class="w3-row w3-section">
                     <div class="w3-col" style="width:7%;">
@@ -252,6 +277,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
 
+
                 <div class="w3-row w3-section">
                     <div class="w3-center">
                         <button name="btnAddEP" class="w3-button w3-block w3-blue w3-cell w3-round-large" style="width: 20%;">
@@ -260,6 +286,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
             </form>
+
 
             <!-- Tabela Experiência Profissional -->
             <div class="w3-container">
@@ -301,15 +328,18 @@ $usuario = unserialize($_SESSION['Usuario']);
             </div>
         </div>
 
+
         <!-- Outras Formações -->
         <div class="w3-padding-128 w3-content w3-text-grey" id="outrasFormacoes">
             <h2 class="w3-text-cyan">Outras Formações</h2>
+
 
             <form action="../Controller/Navegacao.php" method="post" class="w3-row w3-light-grey w3-text-blue w3-margin" style="width: 70%;">
                 <div class="w3-row w3-center">
                     <div class="w3-col" style="width:50%;">Data Inicial</div>
                     <div class="w3-rest">Data Final</div>
                 </div>
+
 
                 <div class="w3-row w3-section">
                     <div class="w3-row w3-section w3-col" style="width:45%;">
@@ -321,6 +351,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                         </div>
                     </div>
 
+
                     <div class="w3-row w3-section w3-rest">
                         <div class="w3-col w3-margin-left" style="width:13%;">
                             <i class="w3-xxlarge fa fa-calendar"></i>
@@ -330,6 +361,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                         </div>
                     </div>
                 </div>
+
 
                 <div class="w3-row w3-section">
                     <div class="w3-col" style="width:7%;">
@@ -341,6 +373,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
 
+
                 <div class="w3-row w3-section">
                     <div class="w3-center">
                         <button name="btnAddOF" class="w3-button w3-block w3-blue w3-cell w3-round-large" style="width: 20%;">
@@ -349,6 +382,7 @@ $usuario = unserialize($_SESSION['Usuario']);
                     </div>
                 </div>
             </form>
+
 
             <!-- Tabela Outras Formações -->
             <div class="w3-container">
@@ -388,7 +422,12 @@ $usuario = unserialize($_SESSION['Usuario']);
             </div>
         </div>
 
+
     </div>
+
 
 </body>
 </html>
+
+
+

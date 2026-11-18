@@ -3,16 +3,19 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+
 switch (true) {
     // Se nenhum POST foi enviado, mostra o login
     case empty($_POST):
         include_once __DIR__ . '/../View/login.php';
         break;
 
+
     // -- Primeiro Acesso -- //
     case isset($_POST["btnPrimeiroAcesso"]):
         include_once __DIR__ . '/../View/PrimeiroAcesso.php';
         break;
+
 
     // -- Cadastrar Usuário -- //
     case isset($_POST["btnCadastrar"]):
@@ -30,6 +33,7 @@ switch (true) {
         }
         break;
 
+
     // -- Login -- //
     case isset($_POST["btnLogin"]):
         require_once __DIR__ . '/UsuarioController.php';
@@ -40,6 +44,7 @@ switch (true) {
             include_once __DIR__ . '/../View/CadastroNaoRealizado.php';
         }
         break;
+
 
     // -- Atualizar Dados Pessoais -- //
     case isset($_POST["btnAtualizar"]):
@@ -58,6 +63,7 @@ switch (true) {
         }
         break;
 
+
     // -- Adicionar Formação Acadêmica -- //
     case isset($_POST["btnAddFormacao"]):
         require_once __DIR__ . '/FormacaoAcadController.php';
@@ -75,6 +81,7 @@ switch (true) {
         }
         break;
 
+
     // -- Excluir Formação Acadêmica -- //
     case isset($_POST["btnExcluirFA"]):
         require_once __DIR__ . '/FormacaoAcadController.php';
@@ -86,6 +93,7 @@ switch (true) {
             include_once __DIR__ . '/../View/OperacaoNaoRealizada.php';
         }
         break;
+
 
     // -- Adicionar Experiência Profissional -- //
     case isset($_POST["btnAddEP"]):
@@ -105,6 +113,7 @@ switch (true) {
         }
         break;
 
+
     // -- Excluir Experiência Profissional -- //
     case isset($_POST["btnExcluirEP"]):
         require_once __DIR__ . '/ExperienciaProfissionalController.php';
@@ -116,6 +125,7 @@ switch (true) {
             include_once __DIR__ . '/../View/OperacaoNaoRealizada.php';
         }
         break;
+
 
     // -- Adicionar Outras Formações (Agenda 13) -- //
     case isset($_POST["btnAddOF"]):
@@ -134,6 +144,7 @@ switch (true) {
         }
         break;
 
+
     // -- Excluir Outras Formações (Agenda 13) -- //
     case isset($_POST["btnExcluirOF"]):
         require_once __DIR__ . '/OutrasFormacoesController.php';
@@ -146,15 +157,56 @@ switch (true) {
         }
         break;
 
-    // -- Visualizar Cadastro (Agenda 14) -- //
+
+    // Agenda 14 - Entrar no módulo administrador
+    case isset($_POST["btnADM"]):
+        include_once __DIR__ . '/../View/ADMLogin.php';
+        break;
+
+
+    case isset($_POST["btnLoginADM"]):
+        require_once __DIR__ . '/AdministradorController.php';
+        $aController = new AdministradorController();
+        if ($aController->login($_POST["txtLoginADM"], $_POST["txtSenhaADM"])) {
+            include_once __DIR__ . '/../View/ADMPrincipal.php';
+        } else {
+            include_once __DIR__ . '/../View/ADMLogin.php';
+            echo '<p class="w3-panel w3-red w3-center">CPF ou senha inválidos.</p>';
+        }
+        break;
+
+
+    case isset($_POST["btnListarCadastrados"]):
+        include_once __DIR__ . '/../View/ADMListarCadastrados.php';
+        break;
+
+
     case isset($_POST["btnVisualizar"]):
-        $_SESSION['IDUsuarioVisualizar'] = $_POST['id'];
+        $_SESSION['IDUsuarioVisualizar'] = (int)$_POST['id'];
         include_once __DIR__ . '/../View/ADMVisualizarCadastro.php';
         break;
 
-    // -- Voltar para Lista de Cadastrados (Agenda 14) -- //
+
     case isset($_POST["btnVoltarLista"]):
         include_once __DIR__ . '/../View/ADMListarCadastrados.php';
         break;
+
+
+    case isset($_POST["btnVoltarADMPrincipal"]):
+        include_once __DIR__ . '/../View/ADMPrincipal.php';
+        break;
+
+
+    case isset($_POST["btnSairADM"]):
+        unset($_SESSION['Administrador']);
+        include_once __DIR__ . '/../View/login.php';
+        break;
+
+
+    case isset($_POST["btnVoltarLogin"]):
+        include_once __DIR__ . '/../View/login.php';
+        break;
+
+
 }
 ?>

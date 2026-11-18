@@ -8,16 +8,19 @@ class Usuario
     private $dataNascimento;
     private $senha;
 
+
     // ID
     public function setID($id)
     {
         $this->id = $id;
     }
 
+
     public function getID()
     {
         return $this->id;
     }
+
 
     // Nome
     public function setNome($nome)
@@ -25,10 +28,12 @@ class Usuario
         $this->nome = $nome;
     }
 
+
     public function getNome()
     {
         return $this->nome;
     }
+
 
     // CPF
     public function setCPF($cpf)
@@ -36,10 +41,12 @@ class Usuario
         $this->cpf = $cpf;
     }
 
+
     public function getCPF()
     {
         return $this->cpf;
     }
+
 
     // Email
     public function setEmail($email)
@@ -47,10 +54,12 @@ class Usuario
         $this->email = $email;
     }
 
+
     public function getEmail()
     {
         return $this->email;
     }
+
 
     // Data de nascimento
     public function setDataNascimento($dataNascimento)
@@ -58,10 +67,12 @@ class Usuario
         $this->dataNascimento = $dataNascimento;
     }
 
+
     public function getDataNascimento()
     {
         return $this->dataNascimento;
     }
+
 
     // Senha
     public function setSenha($senha)
@@ -69,25 +80,30 @@ class Usuario
         $this->senha = $senha;
     }
 
+
     public function getSenha()
     {
         return $this->senha;
     }
-    
+   
     // Método para inserir usuário no banco de dados
     public function inserirBD()
     {
-        require_once 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
+
 
         $con = new ConexaoBD();
         $conn = $con->conectar();
+
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
+
         $sql = "INSERT INTO usuario (nome, cpf, email, senha)
         VALUES ('".$this->nome."', '".$this->cpf."', '".$this->email."', '".$this->senha."')";
+
 
         if ($conn->query($sql) === TRUE) {
             $this->id = mysqli_insert_id($conn);
@@ -98,23 +114,28 @@ class Usuario
             return FALSE;
         }
     }
-    
+   
     // Método para carregar os dados do usuário pelo CPF
     public function carregarUsuario($cpf)
     {
-        require_once 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
+
 
         $con = new ConexaoBD();
         $conn = $con->conectar();
+
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
+
         $sql = "SELECT * FROM usuario WHERE cpf = '".$cpf."'";
+
 
         $re = $conn->query($sql);
         $r = $re->fetch_object();
+
 
         if ($r != null) {
             $this->id = $r->idusuario;
@@ -123,6 +144,7 @@ class Usuario
             $this->cpf = $r->cpf;
             $this->dataNascimento = $r->dataNascimento;
             $this->senha = $r->senha;
+
 
             $conn->close();
             return true;
@@ -133,24 +155,28 @@ class Usuario
             return false;
         }
     }
-    
+   
     // Método para atualizar os dados do usuário
     public function atualizarBD()
     {
-        require_once 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
+
 
         $con = new ConexaoBD();
         $conn = $con->conectar();
 
+
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
+
 
         $sql = "UPDATE usuario SET nome = '".$this->nome."',
         cpf = '".$this->cpf."',
         dataNascimento = '".$this->dataNascimento."',
         email = '".$this->email."'
         WHERE idusuario = '".$this->id."'";
+
 
         if ($conn->query($sql) === TRUE) {
             $conn->close();
@@ -161,40 +187,49 @@ class Usuario
         }
     }
 
+
     // Método para buscar o usuário por ID (compatível com o padrão mysqli do projeto)
     public function buscarPorId($id)
     {
-        require_once 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
+
 
         $con = new ConexaoBD();
         $conn = $con->conectar();
 
+
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
+
 
         $sql = "SELECT * FROM usuario WHERE idusuario = '".$id."'";
         $re = $conn->query($sql);
         $r = $re->fetch_assoc();
 
+
         $conn->close();
         return $r;
     }
+
 
     // =========================================================
     // NOVOS MÉTODOS (AGENDA 13 E AGENDA 14) COLADOS AQUI:
     // =========================================================
 
+
     // Lista todos os usuários cadastrados (usado em ADMListarCadastrados)
     public function listaCadastrados()
     {
-        require_once 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
+
 
         $con = new ConexaoBD();
         $conn = $con->conectar();
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
+
 
         $sql = "SELECT idusuario, nome FROM usuario;";
         $re = $conn->query($sql);
@@ -202,10 +237,12 @@ class Usuario
         return $re;
     }
 
+
     // Carrega o objeto Usuario completo pelo ID (usado em ADMVisualizarCadastro)
     public function carregarUsuarioPorID($id)
     {
-        require_once 'ConexaoBD.php';
+        require_once __DIR__ . '/ConexaoBD.php';
+
 
         $con = new ConexaoBD();
         $conn = $con->conectar();
@@ -213,9 +250,11 @@ class Usuario
             die("Connection failed: " . $conn->connect_error);
         }
 
+
         $sql = "SELECT * FROM usuario WHERE idusuario = " . (int)$id;
         $re = $conn->query($sql);
         $r = $re->fetch_object();
+
 
         if ($r != null) {
             $this->id = $r->idusuario;
@@ -231,6 +270,11 @@ class Usuario
             return false;
         }
     }
+
+
+
+
+
 
 }
 ?>
